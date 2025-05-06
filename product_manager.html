@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Shop Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-gray-300 to-yellow-300">
+<section>
+    <div class="navbar bg-base-100 h-[100px] bg-slate-200 m-3 rounded-lg flex justify-between items-center">
+        <!-- Left Navbar Content -->
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a>About</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Center Navbar Content -->
+        <div class="navbar-center flex-grow flex justify-center">
+            <a href="" class="btn btn-ghost text-3xl font-bold">Super Shop Management System</a>
+        </div>
+        
+        <!-- Right Navbar Content -->
+        <div class="navbar-end">
+            <!-- Add logout button or other items here -->
+        </div>
+    </div>
+</section>
+
+<section class="flex justify-center">
+    <div class="w-10/12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 p-6">
+        
+        <!-- Add Product -->
+        <div class="card bg-white/70 shadow-xl rounded-xl backdrop-blur-md hover:shadow-2xl transform hover:scale-105 transition-all duration-300 p-6 flex flex-col items-center text-center">
+            <i class="fas fa-plus-circle text-6xl text-green-600 mb-4"></i>
+            <h2 class="text-2xl font-bold text-gray-800">Add Product</h2>
+            <p class="text-gray-600 mt-2">Easily add new products to the inventory.</p>
+            <button id="addProductBtn" class="btn bg-green-600 text-white rounded-lg hover:bg-green-700 mt-4">Add</button>
+        </div>
+   
+        <!-- Delete Product -->
+        <div class="card bg-white/70 shadow-xl rounded-xl backdrop-blur-md hover:shadow-2xl transform hover:scale-105 transition-all duration-300 p-6 flex flex-col items-center text-center">
+            <i class="fas fa-trash-alt text-6xl text-red-600 mb-4"></i>
+            <h2 class="text-2xl font-bold text-gray-800">Delete Product</h2>
+            <p class="text-gray-600 mt-2">Remove unwanted products from the system.</p>
+            <button id="deleteProductBtn" class="btn bg-red-600 text-white rounded-lg hover:bg-red-700 mt-4">Delete</button>
+        </div>
+
+        <!-- Update Product -->
+        <div class="card bg-white/70 shadow-xl rounded-xl backdrop-blur-md hover:shadow-2xl transform hover:scale-105 transition-all duration-300 p-6 flex flex-col items-center text-center">
+            <i class="fas fa-edit text-6xl text-orange-400 mb-4"></i>
+            <h2 class="text-2xl font-bold text-gray-800">Update Product</h2>
+            <p class="text-gray-600 mt-2">Modify product details and stock information.</p>
+            <button id="updateProductBtn" class="btn bg-orange-400 text-white rounded-lg hover:bg-orange-500 mt-4">Update</button>
+        </div>
+
+        <!-- All Products -->
+        <div class="card bg-white/70 shadow-xl rounded-xl backdrop-blur-md hover:shadow-2xl transform hover:scale-105 transition-all duration-300 p-6 flex flex-col items-center text-center">
+            <i class="fas fa-box-open text-6xl text-blue-400 mb-4"></i>
+            <h2 class="text-2xl font-bold text-gray-800">All Products</h2>
+            <p class="text-gray-600 mt-2">View and manage all available products.</p>
+            <button id="allProductsBtn" class="btn bg-blue-400 text-white rounded-lg hover:bg-blue-500 mt-4">See Products</button>
+        </div>
+
+    </div>
+</section>
+
+<!-- Modal for Add Product -->
+<div id="addProductModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg w-96">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Add New Product</h2>
+        <div class="mb-4">
+            <label for="productId" class="block text-sm font-semibold text-gray-700">Product ID</label>
+            <input type="text" id="productId" class="input input-bordered w-full mt-2" placeholder="Enter Product ID" />
+        </div>
+        <div class="mb-4">
+            <label for="productName" class="block text-sm font-semibold text-gray-700">Product Name</label>
+            <input type="text" id="productName" class="input input-bordered w-full mt-2" placeholder="Enter Product Name" />
+        </div>
+        <div class="mb-4">
+            <label for="productQuantity" class="block text-sm font-semibold text-gray-700">Product Quantity</label>
+            <input type="number" id="productQuantity" class="input input-bordered w-full mt-2" placeholder="Enter Quantity" />
+        </div>
+        <div class="mb-4">
+            <label for="productPrice" class="block text-sm font-semibold text-gray-700">Product Price</label>
+            <input type="number" id="productPrice" class="input input-bordered w-full mt-2" placeholder="Enter Price" />
+        </div>
+        <div class="flex justify-between">
+            <button id="closeAddModalBtn" class="btn btn-outline text-gray-600 hover:bg-gray-100">Close</button>
+            <button id="addProductBtnModal" class="btn bg-green-600 text-white">Add</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Delete Product -->
+<div id="deleteProductModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg w-96">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Delete Product</h2>
+        <div class="mb-4">
+            <label for="deleteProductId" class="block text-sm font-semibold text-gray-700">Product ID</label>
+            <input type="text" id="deleteProductId" class="input input-bordered w-full mt-2" placeholder="Enter Product ID to delete" />
+        </div>
+        <div class="flex justify-between">
+            <button id="closeDeleteModalBtn" class="btn btn-outline text-gray-600 hover:bg-gray-100">Close</button>
+            <button id="deleteProductBtnModal" class="btn bg-red-600 text-white">Delete</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Update Product -->
+<div id="updateProductModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg w-96">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Update Product</h2>
+        <div class="mb-4">
+            <label for="updateProductId" class="block text-sm font-semibold text-gray-700">Product ID</label>
+            <input type="text" id="updateProductId" class="input input-bordered w-full mt-2" placeholder="Enter Product ID to update" />
+        </div>
+        <div class="mb-4">
+            <label for="updateProductName" class="block text-sm font-semibold text-gray-700">Product Name</label>
+            <input type="text" id="updateProductName" class="input input-bordered w-full mt-2" placeholder="Enter new Product Name" />
+        </div>
+        <div class="mb-4">
+            <label for="updateProductQuantity" class="block text-sm font-semibold text-gray-700">Product Quantity</label>
+            <input type="number" id="updateProductQuantity" class="input input-bordered w-full mt-2" placeholder="Enter new Quantity" />
+        </div>
+        <div class="mb-4">
+            <label for="updateProductPrice" class="block text-sm font-semibold text-gray-700">Product Price</label>
+            <input type="number" id="updateProductPrice" class="input input-bordered w-full mt-2" placeholder="Enter new Price" />
+        </div>
+        <div class="flex justify-between">
+            <button id="closeUpdateModalBtn" class="btn btn-outline text-gray-600 hover:bg-gray-100">Close</button>
+            <button id="updateProductBtnModal" class="btn bg-orange-400 text-white">Update</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for All Products -->
+<div id="allProductsModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white p-6 rounded-lg w-96">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">All Products</h2>
+        <div id="productList" class="text-gray-600"></div>
+        <div class="flex justify-between">
+            <button id="closeAllProductsModalBtn" class="btn btn-outline text-gray-600 hover:bg-gray-100">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add Product Modal
+    const addProductBtn = document.getElementById('addProductBtn');
+    const addProductModal = document.getElementById('addProductModal');
+    const closeAddModalBtn = document.getElementById('closeAddModalBtn');
+    const addProductBtnModal = document.getElementById('addProductBtnModal');
+
+    addProductBtn.addEventListener('click', () => addProductModal.classList.remove('hidden'));
+    closeAddModalBtn.addEventListener('click', () => addProductModal.classList.add('hidden'));
+    addProductBtnModal.addEventListener('click', () => {
+        const id = document.getElementById('productId').value;
+        const name = document.getElementById('productName').value;
+        const quantity = document.getElementById('productQuantity').value;
+        const price = document.getElementById('productPrice').value;
+
+        alert(`Product Added: ${id}, ${name}, ${quantity}, ${price}`);
+        addProductModal.classList.add('hidden');
+    });
+
+    // Delete Product Modal
+    const deleteProductBtn = document.getElementById('deleteProductBtn');
+    const deleteProductModal = document.getElementById('deleteProductModal');
+    const closeDeleteModalBtn = document.getElementById('closeDeleteModalBtn');
+    const deleteProductBtnModal = document.getElementById('deleteProductBtnModal');
+
+    deleteProductBtn.addEventListener('click', () => deleteProductModal.classList.remove('hidden'));
+    closeDeleteModalBtn.addEventListener('click', () => deleteProductModal.classList.add('hidden'));
+    deleteProductBtnModal.addEventListener('click', () => {
+        const id = document.getElementById('deleteProductId').value;
+        alert(`Product with ID: ${id} has been deleted`);
+        deleteProductModal.classList.add('hidden');
+    });
+
+    // Update Product Modal
+    const updateProductBtn = document.getElementById('updateProductBtn');
+    const updateProductModal = document.getElementById('updateProductModal');
+    const closeUpdateModalBtn = document.getElementById('closeUpdateModalBtn');
+    const updateProductBtnModal = document.getElementById('updateProductBtnModal');
+
+    updateProductBtn.addEventListener('click', () => updateProductModal.classList.remove('hidden'));
+    closeUpdateModalBtn.addEventListener('click', () => updateProductModal.classList.add('hidden'));
+    updateProductBtnModal.addEventListener('click', () => {
+        const id = document.getElementById('updateProductId').value;
+        const name = document.getElementById('updateProductName').value;
+        const quantity = document.getElementById('updateProductQuantity').value;
+        const price = document.getElementById('updateProductPrice').value;
+        alert(`Product Updated: ${id}, ${name}, ${quantity}, ${price}`);
+        updateProductModal.classList.add('hidden');
+    });
+
+    // All Products Modal
+    const allProductsBtn = document.getElementById('allProductsBtn');
+    const allProductsModal = document.getElementById('allProductsModal');
+    const closeAllProductsModalBtn = document.getElementById('closeAllProductsModalBtn');
+    const productList = document.getElementById('productList');
+
+   
+</script>
+
+</body>
+</html>

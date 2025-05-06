@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Shop Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-gradient-to-r from-blue-300 to-green-300">
+    <section>
+        <div>
+            <div class="navbar bg-base-100 h-[100px] bg-gray-200 m-3 rounded-lg">
+                <div class="navbar-start">
+                    <div class="dropdown">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                        </div>
+                        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            <li><a href="about.html">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navbar-center">
+                    <a href="" class="btn btn-ghost text-3xl font-bold">Super Shop Management System</a>
+                </div>
+                <div class="navbar-end">
+                    <div class="dropdown dropdown-end">
+                        <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                            <i class="fas fa-user text-2xl"></i> <!-- User Icon -->
+                        </div>
+                        <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            <li><button onclick="document.getElementById('logoutModal').showModal()">Log Out</button></li>
+                         </ul>
+                    </div>
+                </div>
+
+<!-- Log Out Confirmation Modal -->
+<dialog id="logoutModal" class="modal">
+    <div class="modal-box text-center">
+        <h3 class="text-lg font-bold">Are you sure you want to log out?</h3>
+        <p class="mt-2 text-gray-600">You will be logged out from the system.</p>
+        <div class="modal-action flex justify-center gap-4">
+            <button class="btn btn-success" onclick="logout()">Yes, Log Out</button>
+            <form method="dialog">
+                <button class="btn btn-error">Cancel</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    function logout() {
+        window.location.href = "index.html"; // Redirect to login page
+    }
+</script>
+
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-5">
+            <div class="card bg-white shadow-lg rounded-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300 cursor-pointer" onclick="openAdminLogin()">
+                <div class="card-body items-center">
+                    <i class="fas fa-user-shield text-5xl text-blue-500 mb-4"></i>
+                    <h2 class="card-title text-xl font-semibold">Admin</h2>
+                </div>
+            </div>
+
+            <a href="product_manager.html" class="card bg-white shadow-lg rounded-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <div class="card-body items-center">
+                    <i class="fas fa-warehouse text-5xl text-green-500 mb-4"></i>
+                    <h2 class="card-title text-xl font-semibold">Product Manager</h2>
+                </div>
+            </a>
+
+            <a href="javascript:void(0);" class="card bg-white shadow-lg rounded-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300" onclick="openCashierLogin()">
+    <div class="card-body items-center">
+        <i class="fas fa-cash-register text-5xl text-orange-500 mb-4"></i>
+        <h2 class="card-title text-xl font-semibold">Cashier</h2>
+    </div>
+</a>
+
+
+            <a href="stock_update.html" class="card bg-white shadow-lg rounded-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <div class="card-body items-center">
+                    <i class="fas fa-truck text-5xl text-purple-500 mb-4"></i>
+                    <h2 class="card-title text-xl font-semibold">Stock</h2>
+                </div>
+            </a>
+
+            <a href="employee_report.html" class="card bg-white shadow-lg rounded-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <div class="card-body items-center">
+                    <i class="fas fa-headset text-5xl text-yellow-500 mb-4"></i>
+                    <h2 class="card-title text-xl font-semibold">Employee Report</h2>
+                </div>
+            </a>
+
+            <a href="delivery_personal.html" class="card bg-white shadow-lg rounded-lg hover:shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <div class="card-body items-center">
+                    <i class="fas fa-motorcycle text-5xl text-red-500 mb-4"></i>
+                    <h2 class="card-title text-xl font-semibold">Delivery Personnel</h2>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 hidden flex justify-center items-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Admin Login</h2>
+            <input type="text" id="adminId" placeholder="Admin ID" class="input input-bordered w-full mb-3">
+            <input type="password" id="adminPassword" placeholder="Password" class="input input-bordered w-full mb-3">
+            <p id="adminError" class="text-red-500 text-sm hidden">Invalid credentials. Try again.</p>
+            <div class="flex justify-between">
+                <button class="btn btn-error" onclick="closeAdminLogin()">Cancel</button>
+                <button class="btn btn-primary" onclick="validateAdmin()">Login</button>
+            </div>
+        </div>
+    </div>
+      <!-- Cashier Login Modal -->
+    <div id="cashierLoginModal" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 hidden flex justify-center items-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Cashier Login</h2>
+            <input type="text" id="cashierId" placeholder="Cashier ID" class="input input-bordered w-full mb-3">
+            <input type="password" id="cashierPassword" placeholder="Password" class="input input-bordered w-full mb-3">
+            <p id="cashierError" class="text-red-500 text-sm hidden">Invalid credentials. Try again.</p>
+            <div class="flex justify-between">
+                <button class="btn btn-error" onclick="closeCashierLogin()">Cancel</button>
+                <button class="btn btn-primary" onclick="validateCashier()">Login</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function openAdminLogin() {
+            document.getElementById("adminLoginModal").classList.remove("hidden");
+        }
+
+        function closeAdminLogin() {
+            document.getElementById("adminLoginModal").classList.add("hidden");
+        }
+
+        function validateAdmin() {
+            var adminId = document.getElementById("adminId").value;
+            var adminPassword = document.getElementById("adminPassword").value;
+            var errorMessage = document.getElementById("adminError");
+
+            if (adminId === "Admin01" && adminPassword === "AdminPass01") {
+                window.location.href = "admin.html"; // Redirect to admin page
+            } else {
+                errorMessage.classList.remove("hidden");
+            }
+        }
+
+        function logout() {
+            window.location.href = "index.html"; // Redirect to login page
+        }
+         function openCashierLogin() {
+    document.getElementById("cashierLoginModal").classList.remove("hidden");
+}
+
+
+        function closeCashierLogin() {
+            document.getElementById("cashierLoginModal").classList.add("hidden");
+        }
+
+        function validateCashier() {
+            var cashierId = document.getElementById("cashierId").value;
+            var cashierPassword = document.getElementById("cashierPassword").value;
+            var errorMessage = document.getElementById("cashierError");
+
+            if (cashierId === "Cashier01" && cashierPassword === "CashierPass01") {
+                window.location.href = "cashier.html"; // Redirect to cashier page
+            } else {
+                errorMessage.classList.remove("hidden");
+            }
+        }
+    </script>
+ 
+    
+    
+</body>
+</html>

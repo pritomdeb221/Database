@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</head>
+<body class="bg-gradient-to-r from-gray-200 to-yellow-200 min-h-screen">
+    
+    <!-- Navbar -->
+    <section>
+        <div class="navbar bg-white h-24 m-3 rounded-xl shadow-xl flex items-center px-6">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+                        <i class="fas fa-bars text-xl"></i>
+                    </div>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content bg-white rounded-lg mt-3 w-52 p-2 shadow-lg">
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a>About</a></li>
+                    </ul>
+                </div>
+            </div>
+                   
+
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="m-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Assign Employee Card -->
+        <div class="card bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer">
+            <div class="text-center">
+                <i class="fas fa-user-plus text-4xl text-blue-500"></i>
+                <h2 class="text-xl font-semibold mt-3">Assign Employee</h2>
+            </div>
+            <button class="btn btn-primary mt-4 w-full" onclick="document.getElementById('assignEmployeeModal').showModal()">Assign</button>
+        </div>
+
+        <!-- Increment Salary Card -->
+<div class="card bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer">
+    <div class="text-center">
+        <i class="fas fa-money-bill-wave text-4xl text-green-500"></i>
+        <h2 class="text-xl font-semibold mt-3">Increment Salary</h2>
+    </div>
+    <button class="btn btn-primary mt-4 w-full" onclick="document.getElementById('incrementSalaryModal').showModal()">Increment</button>
+</div>
+
+        <!-- Search Employee Card -->
+        <div class="card bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer">
+            <div class="text-center">
+                <i class="fas fa-search text-4xl text-purple-500"></i>
+                <h2 class="text-xl font-semibold mt-3">Search Employee</h2>
+            </div>
+            <button class="btn btn-primary" onclick="document.getElementById('searchEmployeeModal').showModal()">Search Employee</button>
+
+        </div>
+
+        <!-- Employee List Card -->
+        <div class="card bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer">
+            <div class="text-center">
+                <i class="fas fa-users text-4xl text-yellow-500"></i>
+                <h2 class="text-xl font-semibold mt-3">Employee List</h2>
+            </div>
+            <button class="btn btn-primary mt-4 w-full" onclick="window.location.href='getall_user.html'">View</button>
+        </div>
+
+        <!-- Check Attendance Card -->
+        <div class="card bg-white shadow-lg rounded-xl p-6 hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer">
+            <div class="text-center">
+                <i class="fas fa-calendar-check text-4xl text-red-500"></i>
+                <h2 class="text-xl font-semibold mt-3">Check Attendance</h2>
+            </div>
+            <button class="btn btn-primary mt-4 w-full" onclick="window.location.href='attendance_search.html'">View</button>
+        </div>
+
+    </section>
+<!-- Log Out Button (Centered at Bottom) -->
+<div class="fixed bottom-6 left-1/2 transform -translate-x-1/2">
+    <button class="btn btn-error px-6 py-3 text-lg shadow-lg" onclick="document.getElementById('logoutModal').showModal()">Log Out</button>
+</div>
+
+<!-- Log Out Confirmation Modal -->
+<dialog id="logoutModal" class="modal">
+    <div class="modal-box text-center">
+        <h3 class="text-lg font-bold">Are you sure you want to log out from admin page?</h3>
+        <p class="mt-2 text-gray-600">You will be redirected to the dashboard.</p>
+        <div class="modal-action flex justify-center gap-4">
+            <button class="btn btn-success" onclick="logout()">Yes, Log Out</button>
+            <form method="dialog">
+                <button class="btn btn-error">Cancel</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    function logout() {
+        // Clear session or local storage if needed
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // Redirect to the dashboard page (Change 'dashboard.html' to your actual dashboard file)
+        window.location.href = "dashboard.html";
+    }
+</script>
+
+
+    <!-- Employee Form Modal -->
+    <dialog id="assignEmployeeModal" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold text-center">Enter Employee Details</h3>
+            <div class="flex flex-col items-center">
+                <input type="text" id="empName" placeholder="Name" class="input input-bordered w-full mt-2">
+                <input type="text" id="empID" placeholder="ID" class="input input-bordered w-full mt-2">
+                <input type="number" id="empAge" placeholder="Age" class="input input-bordered w-full mt-2">
+                <input type="text" id="empSex" placeholder="Sex" class="input input-bordered w-full mt-2">
+                <input type="file" id="empPhoto" accept="image/*" class="file-input file-input-bordered w-full mt-2" onchange="previewImage(event)">
+                <div class="preview mt-3">
+                    <img id="previewImg" src="https://via.placeholder.com/100" alt="Employee Photo" class="w-24 h-24 rounded-full object-cover">
+                </div>
+            </div>
+            <div class="modal-action">
+                <button class="btn btn-success w-full" onclick="assignEmployee()">Assign Employee</button>
+                <form method="dialog">
+                    <button class="btn btn-error">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('previewImg').src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function assignEmployee() {
+            alert("Employee assigned successfully!");
+            document.getElementById('assignEmployeeModal').close();
+        }
+    </script>
+    <!-- Increment Salary Modal -->
+    <dialog id="incrementSalaryModal" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold text-center">Increment Employee Salary</h3>
+            <div class="flex flex-col items-center">
+                <input type="text" id="salaryEmpID" placeholder="Employee ID" class="input input-bordered w-full mt-2">
+                <input type="number" id="incrementAmount" placeholder="Increment Amount" class="input input-bordered w-full mt-2">
+            </div>
+            <div class="modal-action">
+                <button class="btn btn-success w-full" onclick="incrementSalary()">Confirm Increment</button>
+                <form method="dialog">
+                    <button class="btn btn-error">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <script>
+        function incrementSalary() {
+            alert("Salary incremented successfully!");
+            document.getElementById('incrementSalaryModal').close();
+        }
+    </script>
+    <!-- Search Employee Modal -->
+<dialog id="searchEmployeeModal" class="modal">
+    <div class="modal-box">
+        <h3 class="text-lg font-bold text-center">Search Employee</h3>
+        <div class="flex flex-col items-center">
+            <input type="text" id="searchEmpID" placeholder="Employee ID" class="input input-bordered w-full mt-2">
+            <input type="text" id="searchEmpName" placeholder="Employee Name" class="input input-bordered w-full mt-2">
+        </div>
+        <div class="modal-action">
+            <button class="btn btn-success w-full" onclick="searchEmployee()">Search</button>
+            <form method="dialog">
+                <button class="btn btn-error">Close</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<script>
+    function searchEmployee() {
+        const empID = document.getElementById('searchEmpID').value;
+        const empName = document.getElementById('searchEmpName').value;
+
+        if (!empID && !empName) {
+            alert("Please enter Employee ID or Name to search.");
+            return;
+        }
+
+        alert(`Searching for Employee:\nID: ${empID}\nName: ${empName}`);
+        
+        // Close modal after search (you can replace this with actual search logic)
+        document.getElementById('searchEmployeeModal').close();
+    }
+</script>
+
+</body>
+</html>
